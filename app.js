@@ -35,11 +35,14 @@ app.get('/book', (req, res) => {
 app.post('/insert', (req, res) => {
     ++countGlob;
     const {name, description, author} = req.body;
-    const {userName, surname, books} = req.body;
 
     const db = new BooksColl({name, description, author});
     const count_save = new libColl({countGlob});
 
+    count_save.save()
+    .then(() => res.json("Sucessssss"))
+    .catch((err) => console.log(err));
+    
     db.save()
     .then(() => res.json("Success!"))
     .catch(err => res.json(err));
